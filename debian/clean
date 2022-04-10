@@ -1,0 +1,4 @@
+build/
+brut.apktool/build
+brut.apktool/apktool-cli/build/
+brut.apktool/apktool-lib/build/

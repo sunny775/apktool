@@ -1,0 +1,8 @@
+./scripts/linux/apktool
+./build/libs/apktool-2.6.1.jar
+./brut.apktool/build/libs/brut.apktool.jar
+./brut.apktool/apktool-lib/build/libs/apktool-lib.jar
+./brut.apktool/apktool-cli/build/libs/apktool-cli.jar
+./brut.j.dir/build/libs/brut.j.dir.jar
+./brut.j.util/build/libs/brut.j.util.jar
+./brut.j.common/build/libs/brut.j.common.jar

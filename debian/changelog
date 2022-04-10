@@ -1,0 +1,213 @@
+apktool (2.6.1+dfsg.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version 2.6.1.
+
+ -- Sunday Nkwuda <sonnietech@disroot.org>  Sat, 09 Apr 2022 21:34:49 +0000
+
+apktool (2.5.0+dfsg.1-2) unstable; urgency=medium
+
+  * Source-only upload to allow the migration to testing. (Closes: #982623)
+  * Declare compliance with Debian Policy 4.5.1.
+
+ -- Markus Koschany <apo@debian.org>  Mon, 15 Feb 2021 23:31:34 +0100
+
+apktool (2.5.0+dfsg.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version 2.5.0.
+  * Refresh all patches.
+  * Update Files-Excluded and remove get-orig-source target, now
+    that tar works as expected.
+
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Wed, 03 Feb 2021 19:34:43 +0530
+
+apktool (2.4.1-1) unstable; urgency=medium
+
+  * New upstream version 2.4.1.
+  * Declare compliance with Debian Policy 4.5.0.
+  * Tighten dependency on libsmali-java to >= 2.4.0.
+  * Refresh all patches.
+
+ -- Markus Koschany <apo@debian.org>  Sun, 29 Mar 2020 22:38:50 +0200
+
+apktool (2.4.0-1) unstable; urgency=medium
+
+  * New upstream version 2.4.0.
+  * Switch to debhelper-compat = 12.
+  * Declare compliance with Debian Policy 4.4.0.
+  * Require java8-runtime-headless at least.
+  * Rebase build.patch
+
+ -- Markus Koschany <apo@debian.org>  Mon, 29 Jul 2019 01:52:18 +0200
+
+apktool (2.3.4-1) unstable; urgency=medium
+
+  * New upstream version 2.3.4.
+  * Use dh_missing instead of dh_install.
+  * Declare compliance with Debian Policy 4.2.1.
+  * Implement get-orig-source target because uscan and Files-Excluded does not
+    work as expected.
+
+ -- Markus Koschany <apo@debian.org>  Tue, 18 Sep 2018 23:00:35 +0200
+
+apktool (2.3.3-2) unstable; urgency=medium
+
+  * Add snakeyaml-1.21.patch and fix NoSuchMethodError error with Snakeyaml
+    1.21. (Closes: #902666)
+
+ -- Markus Koschany <apo@debian.org>  Fri, 29 Jun 2018 19:40:21 +0200
+
+apktool (2.3.3-1) unstable; urgency=medium
+
+  * New upstream version 2.3.3.
+
+ -- Markus Koschany <apo@debian.org>  Mon, 30 Apr 2018 23:41:36 +0200
+
+apktool (2.3.2-1) unstable; urgency=medium
+
+  * New upstream version 2.3.2.
+  * Refresh the patches.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 12 Apr 2018 19:38:03 +0200
+
+apktool (2.3.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2.3.1+dfsg.
+  * Switch to compat level 11.
+  * Declare compliance with Debian Policy 4.1.3.
+  * Refresh build.patch.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 04 Jan 2018 22:29:41 +0100
+
+apktool (2.3.0+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2.3.0+dfsg.
+  * Declare compliance with Debian Policy 4.1.1.
+  * Refresh build.patch.
+
+ -- Markus Koschany <apo@debian.org>  Mon, 02 Oct 2017 23:02:51 +0200
+
+apktool (2.2.4+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2.2.4+dfsg.
+  * get-orig-source: Remove --repack option.
+  * Declare compliance with Debian Policy 4.0.1.
+  * Refresh build.patch.
+  * Remove libjsr305-java. It is no longer required.
+
+ -- Markus Koschany <apo@debian.org>  Fri, 18 Aug 2017 22:04:47 +0200
+
+apktool (2.2.3+dfsg-1) unstable; urgency=medium
+
+  * Upload to unstable.
+  * New upstream version 2.2.3+dfsg.
+  * Refresh use_system_framework.patch
+  * Build-depend on proguard-cli to avoid pulling in useless X11 libs.
+  * Tighten dependencies on libsmali-java.
+  * Refresh build.patch
+
+ -- Markus Koschany <apo@debian.org>  Mon, 19 Jun 2017 15:57:15 +0200
+
+apktool (2.2.2+dfsg-1) experimental; urgency=medium
+
+  * New upstream version 2.2.2+dfsg.
+
+ -- Markus Koschany <apo@debian.org>  Wed, 08 Mar 2017 10:42:08 +0100
+
+apktool (2.2.1+dfsg-2) unstable; urgency=medium
+
+  * Make the build reproducible by using the install file for all jar files
+    instead of the find command in debian/rules.
+    Thanks to Chris Lamb for the report. (Closes: #845475)
+
+ -- Markus Koschany <apo@debian.org>  Mon, 28 Nov 2016 16:36:32 +0100
+
+apktool (2.2.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2.2.1+dfsg.
+  * Switch to compat level 10.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 20 Oct 2016 09:17:38 +0200
+
+apktool (2.2.0+dfsg-1) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Markus Koschany ]
+  * Drop jflex and libgradle-jflex-plugin-java from Build-Depends.
+
+  [ Chirayu Desai ]
+  * Imported Upstream version 2.2.0+dfsg
+  * Drop framework install path patch
+  * maven: use debian version for apache commons-lang3
+  * Add debian gitignore file
+
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Mon, 08 Aug 2016 18:21:27 +0530
+
+apktool (2.1.1+dfsg-3) unstable; urgency=medium
+
+  * Update debian-wrapper.patch and symlink
+    /usr/share/android-framework-res/framework-res.apk to
+    ~/.local/share/apktool/framework/1.apk on first start if it does not exist.
+    This will avoid unnecessarily filling up disk space. (Closes: #827646)
+  * Tighten dependency on libsmali-java.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 28 Jul 2016 06:58:56 +0200
+
+apktool (2.1.1+dfsg-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Chirayu Desai ]
+  * Depend on android-framework-res, and use it. (Closes: #824933)
+  * Use ~/.local/share/apktool for installing frameworks. (Closes: #824930)
+
+  [ Markus Koschany ]
+  * Patch wrapper script instead of replacing it. (Closes: #824927, #824925)
+
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Tue, 14 Jun 2016 21:16:35 +0530
+
+apktool (2.1.1+dfsg-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.1.1+dfsg.
+
+ -- Markus Koschany <apo@debian.org>  Tue, 10 May 2016 02:37:43 +0200
+
+apktool (2.1.0+dfsg-2) unstable; urgency=medium
+
+  * Remove superfluous check for apktool.jar because it is guaranteed to be
+    installed into /usr/share/apktool anyway.
+    Thanks to Sophie Brun for the report. (Closes: #823212)
+
+ -- Markus Koschany <apo@debian.org>  Mon, 02 May 2016 12:56:44 +0200
+
+apktool (2.1.0+dfsg-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.1.0+dfsg.
+  * Declare compliance with Debian Policy 3.9.8.
+  * Depend on default-jre-headless | java7-runtime-headless.
+  * Drop LittleEndianDataInputStream.java.patch. Fixed upstream.
+  * Refresh build.patch for new release.
+  * Update debian/copyright for new release.
+  * Add libsmali-java to Build-Depends and Depends.
+  * Symlink smali jars into apktool directory.
+
+ -- Markus Koschany <apo@debian.org>  Sun, 24 Apr 2016 09:11:16 +0200
+
+apktool (2.0.2+dfsg-2) unstable; urgency=medium
+
+  * Update LittleEndianDataInputStream.patch.
+    Replace defunct Little Endian implementation by cherry-picking
+    upstream commit ecb46ec5e750e58c159ab557f7e21f2d27c7a6b9
+    and using the new public domain class LittleEndianDataInputStream
+    (Closes: #819191)
+  * Clarify license for new Little Endian data input stream implementation.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 24 Mar 2016 20:38:32 +0100
+
+apktool (2.0.2+dfsg-1) unstable; urgency=medium
+
+  * Initial release (Closes: #806855)
+
+ -- Markus Koschany <apo@debian.org>  Wed, 17 Feb 2016 17:27:21 +0100

@@ -1,0 +1,24 @@
+From: Markus Koschany <apo@debian.org>
+Date: Sun, 8 Apr 2018 22:34:03 +0200
+Subject: use_system_framework
+
+Rather than including a package provided apk in the jar,
+just read it directly from where it gets installed.
+---
+--- a/brut.apktool/apktool-lib/src/main/java/brut/androlib/res/AndrolibResources.java
++++ b/brut.apktool/apktool-lib/src/main/java/brut/androlib/res/AndrolibResources.java
+@@ -1023,7 +1023,13 @@
+     }
+ 
+     public InputStream getAndroidFrameworkResourcesAsStream() {
+-        return Jar.class.getResourceAsStream("/brut/androlib/android-framework.jar");
++        String resourcePath = "/usr/share/android-framework-res/framework-res.apk";
++        try {
++            return new FileInputStream(resourcePath);
++        } catch (IOException ex) {
++            System.out.println("Could not extract resource: " + resourcePath);
++            return null;
++        }
+     }
+ 
+     public void close() throws IOException {

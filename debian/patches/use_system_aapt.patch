@@ -1,0 +1,16 @@
+From: Markus Koschany <apo@debian.org>
+Date: Sun, 8 Apr 2018 22:41:15 +0200
+Subject: use_system_aapt
+
+---
+--- a/brut.apktool/apktool-lib/src/main/java/brut/androlib/options/BuildOptions.java
++++ b/brut.apktool/apktool-lib/src/main/java/brut/androlib/options/BuildOptions.java
+@@ -34,7 +34,7 @@
+ 
+     public String frameworkFolderLocation = null;
+     public String frameworkTag = null;
+-    public String aaptPath = "";
++    public String aaptPath = "/usr/bin/aapt";
+ 
+     public int aaptVersion = 1; // default to v1
+ 

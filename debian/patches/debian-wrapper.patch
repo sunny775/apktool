@@ -1,0 +1,63 @@
+From: Markus Koschany <apo@debian.org>
+Date: Sat, 21 May 2016 16:22:29 +0200
+Subject: debian wrapper
+
+---
+ scripts/linux/apktool | 29 ++++++++++++-----------------
+ 1 file changed, 12 insertions(+), 17 deletions(-)
+
+--- a/scripts/linux/apktool
++++ b/scripts/linux/apktool
+@@ -20,6 +20,16 @@
+ 
+ # Set up prog to be the path of this script, including following symlinks,
+ # and set up progdir to be the fully-qualified pathname of its directory.
++
++WORKING_DIRECTORY=~/.local/share/apktool/framework/
++
++if [ ! -d ${WORKING_DIRECTORY} ]; then
++    mkdir -m 700 -p ${WORKING_DIRECTORY}
++    ln -s /usr/share/android-framework-res/framework-res.apk ${WORKING_DIRECTORY}/1.apk
++fi
++
++APP_HOME="/usr/share/apktool"
++
+ prog="$0"
+ while [ -h "${prog}" ]; do
+     newProg=`/bin/ls -ld "${prog}"`
+@@ -33,19 +43,12 @@
+     fi
+ done
+ oldwd=`pwd`
+-progdir=`dirname "${prog}"`
++progdir="/usr/share/apktool"
+ cd "${progdir}"
+ progdir=`pwd`
+ prog="${progdir}"/`basename "${prog}"`
+ cd "${oldwd}"
+ 
+-jarfile=apktool.jar
+-libdir="$progdir"
+-if [ ! -r "$libdir/$jarfile" ]
+-then
+-    echo `basename "$prog"`": can't find $jarfile"
+-    exit 1
+-fi
+ 
+ javaOpts=""
+ 
+@@ -65,13 +68,8 @@
+     shift
+ done
+ 
+-if [ "$OSTYPE" = "cygwin" ] ; then
+-	jarpath=`cygpath -w  "$libdir/$jarfile"`
+-else
+-	jarpath="$libdir/$jarfile"
+-fi
+ 
+ # add current location to path for aapt
+ PATH=$PATH:`pwd`;
+ export PATH;
+-exec java $javaOpts -jar "$jarpath" "$@"
++exec java $javaOpts -cp "/usr/share/apktool/*" brut.apktool.Main "$@"

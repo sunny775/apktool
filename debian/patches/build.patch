@@ -1,0 +1,193 @@
+From: Markus Koschany <apo@debian.org>
+Date: Sun, 29 Mar 2020 22:37:56 +0200
+Subject: build
+
+---
+ 
+--- a/brut.apktool/apktool-cli/build.gradle
++++ b/brut.apktool/apktool-cli/build.gradle
+@@ -15,7 +15,6 @@
+  */
+ import proguard.gradle.ProGuardTask
+ 
+-apply plugin: 'com.github.johnrengelman.shadow'
+ 
+ dependencies {
+     implementation depends.commons_cli
+@@ -41,11 +40,10 @@
+ }
+ 
+ task cleanOutputDirectory(type: Delete) {
+-    delete fileTree(dir: jar.getDestinationDirectory().getAsFile(), exclude: "apktool-cli-all.jar")
+ }
+ 
+-task proguard(type: ProGuardTask, dependsOn: shadowJar) {
+-    injars shadowJar.getArchiveFile()
++task proguard(type: ProGuardTask) {
++    injars jar.archivePath
+ 
+     // Java 9 and prior uses merged package for runtime, later uses split jmod files.
+     if (JavaVersion.current() <= JavaVersion.VERSION_1_8) {
+@@ -76,9 +74,7 @@
+     // between Java 1.8 and 1.9, the signature of `flip()` changed, which trips up proguard.
+     dontwarn 'org.yaml.snakeyaml.scanner.ScannerImpl'
+ 
+-    def outPath = jar.getDestinationDirectory().getAsFile().get().toString()
+-    def extension = jar.archiveExtension.get().toString()
+-    def outFile = outPath + '/' + "apktool" + '-' + project.apktool_version + '-small' + '.' + extension
++    def outFile = jar.destinationDir.getPath() + '/' + "apktool" + '-' + project.apktool_version + '-small' + '.' + jar.extension
+     outjars outFile
+ }
+ 
+--- a/build.gradle
++++ b/build.gradle
+@@ -25,8 +25,8 @@
+                 commons_text   : 'org.apache.commons:commons-text:1.9',
+                 guava          : 'com.google.guava:guava:31.0.1-jre',
+                 junit          : 'junit:junit:4.13.2',
+-                proguard_gradle: 'com.guardsquare:proguard-gradle:7.1.1',
+-                snakeyaml      : 'org.yaml:snakeyaml:1.29:android',
++                proguard_gradle: 'net.sf.proguard:proguard-gradle:6.1.1',
++                snakeyaml      : 'org.yaml:snakeyaml:1.29',
+                 smali          : 'org.smali:smali:2.5.2',
+                 xmlpull        : 'xpp3:xpp3:1.1.4c',
+                 xmlunit        : 'xmlunit:xmlunit:1.6',
+@@ -36,10 +36,7 @@
+     repositories {
+         mavenCentral()
+         gradlePluginPortal()
+-    }
+-    dependencies {
+-        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.0"
+-        classpath "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:0.16.1"
++	jcenter()
+     }
+ }
+ 
+@@ -48,44 +45,16 @@
+ version = '2.6.1'
+ def suffix = ''
+ 
+-defaultTasks 'build', 'shadowJar', 'proguard'
++defaultTasks 'build', 'proguard'
+ 
+ allprojects {
+     apply plugin: 'java'
+-    apply plugin: 'com.github.hierynomus.license'
+ 
+     sourceCompatibility = JavaVersion.VERSION_1_8
+     targetCompatibility = JavaVersion.VERSION_1_8
+ 
+-    license {
+-        header rootProject.file("brut.j.common/src/templates/apache2.0-header.txt")
+-        exclude "**/android/content/res/*.java"
+-        exclude "**/android/util/*.java"
+-        include "**/*.java"
+-        mapping {
+-            java = 'SLASHSTAR_STYLE'
+-        }
+-        ext {
+-            year = '2010'
+-            brut = 'Ryszard Wiśniewski'
+-            brutEmail = 'brut.alll@gmail.com'
+-            ibot = 'Connor Tumbleson'
+-            ibotEmail = 'connor.tumbleson@gmail.com'
+-        }
+-        strictCheck true
+-    }
+-
+-    // license plugin automatically fires these tasks, disable them and run them during releases
+-    gradle.startParameter.excludedTaskNames += [
+-            "licenseMain",
+-            "licenseTest"
+-    ]
+ }
+ 
+-tasks.withType(JavaCompile).configureEach {
+-    options.encoding = StandardCharsets.UTF_8.toString()
+-    options.compilerArgs += ["-Xlint:-options"]
+-}
+ 
+ def mavenVersion = 'unspecified'
+ if (!('release' in gradle.startParameter.taskNames)) {
+@@ -146,80 +115,4 @@
+         }
+     }
+ 
+-    def mavenProjects = ['apktool-lib', 'apktool-cli', 'brut.j.common', 'brut.j.util', 'brut.j.dir']
+-
+-    if (project.name in mavenProjects) {
+-        apply plugin: 'maven-publish'
+-        apply plugin: 'signing'
+-
+-        publishing {
+-            publications {
+-                maven(MavenPublication) {
+-                    from project.components.java
+-
+-                    groupId = 'org.apktool'
+-                    artifactId = project.name
+-                    version = mavenVersion
+-
+-                    pom {
+-                        name = 'Apktool'
+-                        description = 'A tool for reverse engineering Android apk files.'
+-                        url = 'https://apktool.org'
+-
+-                        licenses {
+-                            license {
+-                                name = 'The Apache License 2.0'
+-                                url = 'https://opensource.org/licenses/Apache-2.0'
+-                            }
+-                        }
+-                        developers {
+-                            developer {
+-                                id = 'iBotPeaches'
+-                                name = 'Connor Tumbleson'
+-                                email = 'connor.tumbleson@gmail.com'
+-                            }
+-                            developer {
+-                                id = 'brutall'
+-                                name = 'Ryszard Wiśniewski'
+-                                email = 'brut.alll@gmail.com'
+-                            }
+-                        }
+-                        scm {
+-                            connection = 'scm:git:git://github.com/iBotPeaches/Apktool.git'
+-                            developerConnection = 'scm:git:git@github.com:iBotPeaches/Apktool.git'
+-                            url = 'https://github.com/iBotPeaches/Apktool'
+-                        }
+-                    }
+-                }
+-            }
+-            if (rootProject.hasProperty('ossrhUsername') && rootProject.hasProperty('ossrhPassword')) {
+-                repositories {
+-                    maven {
+-                        if (mavenVersion.endsWith('-SNAPSHOT')) {
+-                            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+-                        } else {
+-                            url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+-                        }
+-                        credentials {
+-                            username ossrhUsername
+-                            password ossrhPassword
+-                        }
+-                    }
+-                }
+-            }
+-        }
+-
+-        signing {
+-            required { gradle.taskGraph.hasTask('publish') }
+-            sign(publishing.publications["maven"])
+-        }
+-
+-        java {
+-            withJavadocJar()
+-            withSourcesJar()
+-        }
+-
+-        tasks.getByPath(':release').dependsOn(publish)
+-        tasks.getByPath(':snapshot').dependsOn(publish)
+-    }
+ }

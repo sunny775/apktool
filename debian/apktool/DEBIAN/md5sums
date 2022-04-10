@@ -1,0 +1,12 @@
+8f8a89918ddc84610d6f2427ccecaf88  usr/bin/apktool
+4dc59b845ad2b27eff914e1ff57d3ede  usr/share/apktool/apktool-2.6.1.jar
+94fb15c0ac367e5f6160b9584531ca43  usr/share/apktool/apktool-cli.jar
+acf3f448ec0709d392540bc6395f8a37  usr/share/apktool/apktool-lib.jar
+4dc59b845ad2b27eff914e1ff57d3ede  usr/share/apktool/brut.apktool.jar
+5718de63e2f73518cde677bc6f4b1cfc  usr/share/apktool/brut.j.common.jar
+fd12f533986282a1fc3857244479a21b  usr/share/apktool/brut.j.dir.jar
+5f471fa66da5adda47fce17ef9a1b5b3  usr/share/apktool/brut.j.util.jar
+7bc5c58a798825a92b5a6b375ab1ea97  usr/share/doc/apktool/changelog.Debian.gz
+63accfc2a8f63433a7d2548e3ccec369  usr/share/doc/apktool/copyright
+1d188c2fd375f8029cb6f8287d0f2ed2  usr/share/lintian/overrides/apktool
+23e75ad46d4c9fe1a596b51e923935b5  usr/share/man/man1/apktool.1.gz
